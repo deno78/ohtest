@@ -1,0 +1,20 @@
+jobs:
+  resolve_issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup OpenHands Resolver
+        run: pip install openhands-resolver
+
+      - name: Run OpenHands Agent via OpenRouter
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          LLM_MODEL: "openrouter/google/gemma-3-27b-it:free"
+        run: |
+          export OPENAI_API_KEY=$OPENROUTER_API_KEY
+          export OPENAI_BASE_URL="https://openrouter.ai/api/v1"
+          openhands-resolver-run \
+            --issue-number="${{ github.event.issue.number }}" \
+            --target-branch="agent-fixes"
