@@ -1,7 +1,14 @@
-jobs:
-  resolve_issue:
-    runs-on: ubuntu-latest
+name: OpenHands Agent Issue Resolver
 
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  resolve:
+    if: contains(github.event.label.name, 'fix-me')
+    runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v4
 
