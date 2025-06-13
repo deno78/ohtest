@@ -12,8 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup OpenHands e2b
+        run: pip install "e2b>=0.17.1,<0.18.0"
+
       - name: Setup OpenHands Resolver
-        run: pip install openhands-resolver
+        run: pip install openhands-ai openhands-resolver --no-deps
 
       - name: Run OpenHands Agent via OpenRouter
         env:
